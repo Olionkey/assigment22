@@ -12,17 +12,26 @@ const int unionPayment = 10;
 const int dependents = 35; // If more then three depends then extra tax to health insurance.
 double grossPay, ss, si, fi, unionPay, nP;
 
+double calculateGrossPay(int hours);
+void calulcateDeducations(int grossPay, int numOfDependants);
+void printDeducations();
+
 int main()
 {
     int hoursWorked, numOfDependants;
-    while (true)
-    {
+
         cout << "Enter the number of hours worked this week: ";
         cin >> hoursWorked;
         cout << endl
              << "Enter the number of dependants: ";
         cin >> numOfDependants;
-    }
+
+
+        double temp = calculateGrossPay(hoursWorked);
+
+        calulcateDeducations(temp, numOfDependants);
+        printDeducations();
+
     return 0;
 }
 /**
@@ -31,7 +40,6 @@ int main()
  */
 double calculateGrossPay(int hours)
 {
-    double grossPay;
     if (hours > 40)
     {
         grossPay = hourPay * (hours - 40) * (1.5 * hourPay);
@@ -43,14 +51,18 @@ double calculateGrossPay(int hours)
     return grossPay;
 }
 
-double calulcateDeducations(int grossPay)
-{
-    double ss, si, fi;
+void calulcateDeducations(int grossPay, int numOfDep)
+{       
+     if (numOfDep >= 3)
+        // do Something, found out what.
     ss = grossPay * socialSecurityTax;
     si = grossPay * stateIncomeTax;
     fi = grossPay * fedearlIncomeTax;
+
 }
 
 void printDeducations()
 {
+    cout << "Your gross pay is: \t" << grossPay;
+    cout << "\nDeductions\n  Social Security Tax: \t" << ss << endl << "  Federal Income Tax: \t" << fi << endl << "  State Income Tax: \t" << si << "  Union Dues: \t" << unionPayment << endl << "\nYour net pay is: \t" << (grossPay - ss - si - fi);
 }
