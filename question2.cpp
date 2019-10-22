@@ -33,4 +33,3 @@ void metersToFeet(double meters, int &feet, int &inches)
 {
     feet = (int)meters / metersPerFoot;
     inches = (int)((meters / metersPerFoot) - feet) * 12 + 0.5;
-}
