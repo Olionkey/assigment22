@@ -10,7 +10,7 @@ void determinWinner(int userChoice, int computerChoice);
 bool validateChoice (int choice);
 string numToString(int num);
 
-int computerWinnings, playerWinnings, games, choice = 2;
+int computerWinnings, playerWinnings, games;
 
 /*
     Store the win states in an 2d array with the win states, so instead of having a screen full of logic states, I can just pull from a matrix of who would be winner.
@@ -22,14 +22,18 @@ int gameState[3][3] = {{0,2,1},
                        {1,0,2},
                        {2,1,0}};
 
-int main()
-{
-    int userChoice, computerChoice;
-    bool run = true;
+int main(){
+    int userChoice =2;
+    int computerChoice;
+    // Validates the user choice.
     do
     {
-        /* get play choices */
+        if (userChoice < 1 || userChoice > 4)
+            cout << "Sorry but that was not a valid choice please try again.";
         userChoice = getUserChoice();
+        computerChoice = getComputerChoice();
+        cout << computerChoice;
+
         if (userChoice == 4)
         {
             cout << "Thanks for playing!" << endl;
@@ -38,60 +42,54 @@ int main()
             cout << "In " << games << " games";
             return 0;
         }
-        computerChoice = getComputerChoice();
-
-        /* Print out what was chosen. */
         cout << "You selected: " << numToString(userChoice) << "." << endl;
-        cout << "The computer has selected: " << numToString(computerChoice) << "." <<  endl;
+        cout << "The computer has selected: " << numToString(computerChoice) << "." << endl;
         determinWinner(userChoice, computerChoice);
-    } while (run);
-
+    } while (userChoice < 1 || userChoice > 4);
     return 0;
 }
 
 int getUserChoice(){
-    do {
-        if (choice < 1 || choice > 4)
-            cout << "Sorry but that is a valid choice please try again" << endl;
-        cout << "Game Menu" << endl
-             << "---------" << endl;
-        cout << "1) Rock" << endl;
-        cout << "2) Paper" << endl;
-        cout << "3) Scissors" << endl;
-        cout << "4) Quit" << endl;
-        cout << "Enter your choice (1-4)";
-        cin >> choice;
-    } while ( choice < 1 || choice > 4);
-
-    return choice;
+    int choice;
+    cout << "Game Menu" << endl
+         << "---------" << endl;
+    cout << "1) Rock" << endl;
+    cout << "2) Paper" << endl;
+    cout << "3) Scissors" << endl;
+    cout << "4) Quit" << endl;
+    cout << "Enter your choice (1-4)";
+    cin >> choice;
+    return choice--;
 }
 
 int getComputerChoice (){
-    return rand() % 3 + 1;
+    cout << "rand is " << (rand() % 2 +1);
+    return rand() % 2 + 1;
 }
 
 
 string numToString(int num){
-    //num = num;
+    num = num;
     // The breaks are unnedded due to the nature of how return's work.
     switch (num) {
-        case 1:
+        case 0:
             return "Rock";
         break;
-        case 2:
+        case 1:
             return "Paper";
         break;
-        case 3:
+        case 2:
             return "Scissors";
         break;
     }
-    return "-1";
+    return "hi";
 }
 
 void determinWinner(int playerChoice, int computerChoice){
-    int endState = gameState[playerChoice-1][computerChoice-1]; // do this so only have to call the array once. 
+    int endState = gameState[playerChoice][computerChoice]; // do this so only have to call the array once. 
     if (endState == 0){
         cout << "Tie. No Winner" << endl;
+        games++;
     } else if (endState == 1) {
         cout << "YOU win" << endl;
         playerWinnings++;
@@ -99,5 +97,4 @@ void determinWinner(int playerChoice, int computerChoice){
         cout << "YOU loose" << endl;
         computerWinnings++;
     }
-    games ++;
 }

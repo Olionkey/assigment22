@@ -5,10 +5,12 @@
 using namespace std;
 const double metersPerFoot = 0.3048;
 
-void main()
+void metersToFeet(double meters, int &feet, double &inches);
+
+int main()
 {
-    double meters;
-    int feet, inches;
+    double meters, inches;
+    int feet;
     string response;
     do
     {
@@ -27,9 +29,13 @@ void main()
         getline(cin, response);
         getline(cin, response);
     } while (response == "Y" || response == "y");
+    return 0;
 }
 
-void metersToFeet(double meters, int &feet, int &inches)
+void metersToFeet(double meters, int &feet,  double &inches)
 {
-    feet = (int)meters / metersPerFoot;
-    inches = (int)((meters / metersPerFoot) - feet) * 12 + 0.5;
+    inches = meters * (metersPerFoot * 12);
+    cout << inches; 
+    feet = (int)inches / 12;
+    inches /= 12;
+}
